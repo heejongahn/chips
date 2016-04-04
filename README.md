@@ -2,22 +2,19 @@
 
 A plugin manager for [fish].
 
-## Why another plugin manager? Why not Oh My Fish?
+## Features
 
-OMF is lovely, but it does have its shortcomings. chips aims to address them. The advantages are:
-
-- Fast: **Parallel installation/upgrade** of plugins.
-- Minimally invasive to your `config.fish`: Adding **one** line is sufficient
-- Zero overhead to the fish shell itself: **Only plugins will be sourced**, chips itself doesn't require any fish script to be loaded at all to work
-- **Zero dependency** and minimum installation cost: chips is a single statically-compiled binary executable file
-
-[Not an April Fools' joke](https://github.com/kinoru/chips/commit/0b87850ab0a658391b643f0ecc37f748dac89010).
+- Fast. Natively compiled to the machine code. Parallel installation/upgrade of plugins.
+- Minimally invasive to your `config.fish`: Adding one line is sufficient.
+- Zero overhead to the fish shell itself. Only plugins will be sourced, chips itself doesn't require any fish script to be loaded at all to work.
+- Minimum installation cost: No dependency except `git` and `curl`. chips is a single statically-compiled binary executable file
+- Uninstall is easy: Remove chips, `~/.config/chips`, and the line in `config.fish`, and you're clean as if you never installed chips at all.
 
 ## Installation
 
 Current version: **chips 1.0.0** (2016-04-01)
 
-### GNU/Linux
+### GNU/Linux (x64)
 
 Assuming `~/.local/bin` is in your `$PATH`:
 
@@ -29,6 +26,8 @@ curl -L \
 ```
 
 ### OS X
+
+Assuming `~/.local/bin` is in your `$PATH`:
 
 ```fish
 curl -L \
@@ -51,7 +50,10 @@ stack install
 
 1. Run `chips`. This will create `~/.config/chips/plugin.yaml` with the default template.
 1. Edit `plugin.yaml` to include your desired plugins. For example, consider [fish-sensible] or [shellder].
-1. Run `chips` again.
+1. Run `chips` again. This will:
+    1. Download the plugins you have specified.
+    1. Create `~/.config/chips/build.fish` which `source`s those plugins.
+    1. Check `config.fish`, and if there is no line that `source`s the `build.fish` file, add one.
 
 Any time you make changes to `plugin.yaml` or you want to update plugins, run `chips` again.
 
